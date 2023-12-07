@@ -1,10 +1,13 @@
 module com.lesson.bank_system {
     requires javafx.controls;
     requires javafx.fxml;
-
     requires com.dlsc.formsfx;
     requires org.kordamp.bootstrapfx.core;
     requires spring.context;
+    requires java.persistence;
+    requires spring.data.jpa;
+    requires spring.beans;
+    requires spring.web;
 
     //exports com.lesson.bank_system;
     opens com.lesson.bank to javafx.fxml;
