@@ -1,88 +1,45 @@
 package com.lesson.bank.templates;
 
-import java.math.BigDecimal;
 
-public abstract class Client {
+public interface Client {
 
-    private String name;
+    public String getName();
 
-    private String surname;
+    void setName(String name);
 
-    private String middlename;
+    String getSurname();
 
-    private short age;
+    void setSurname(String surname);
 
-    private BigDecimal balance = new BigDecimal(0);
+    String getMiddlename();
 
-    private String phoneNumber;
+    void setMiddlename(String middlename);
 
-    private String email;
+    public short getAge();
 
-    private String password;
+    public void setAge(short age);
 
-    public String getName() {
-        return name;
-    }
+    public void setCardNumber(Long id);
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public String getCardNumber();
 
-    public String getSurname() {
-        return surname;
-    }
+    public String getBalance();
 
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
+    public void setBalance(String balance);
 
-    public String getMiddlename() {
-        return middlename;
-    }
+    public String getPhoneNumber();
 
-    public void setMiddlename(String middlename) {
-        this.middlename = middlename;
-    }
+    public void setPhoneNumber(String phoneNumber);
 
-    public short getAge() {
-        return age;
-    }
+    public String getEmail();
 
-    public void setAge(short age) {
-        this.age = age;
-    }
+    public void setEmail(String email);
 
-    public String getBalance() {
-        return String.valueOf(balance);
-    }
+    public String getPassword();
 
-    public void setBalance(String balance) {
-        this.balance = BigDecimal.valueOf(Long.parseLong(balance));
-    }
+    public void setPassword(String password);
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+    public Long getId();
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-
+    public void setId(Long id);
 }

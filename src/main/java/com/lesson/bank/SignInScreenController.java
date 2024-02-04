@@ -1,7 +1,5 @@
 package com.lesson.bank;
 
-import com.lesson.bank.client.ClientGet;
-import com.lesson.bank.client.ClientSend;
 import com.lesson.bank.client.UserClient;
 import com.lesson.bank.controllers.ClientController;
 import com.lesson.bank.security.Validation;
@@ -14,32 +12,34 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-import org.springframework.stereotype.Component;
 
-import java.io.*;
+import java.io.IOException;
 
-@Component
-public class RegistrationScreenController {
+public class SignInScreenController {
 
     public Button signInButton;
     public Button signUpButton;
     public TextField phoneNumberField;
     public PasswordField passwordField;
     public Label nickLabel;
+    private Validation validation;
     private AnnotationConfigApplicationContext context;
 
-    private Validation validation;
+    public void initialize(){
+        context = new AnnotationConfigApplicationContext(SpringConfig.class);
+        validation = context.getBean("validation", Validation.class);
+    }
 
     @FXML
-    public void signUpClick(ActionEvent actionEvent) throws IOException {
+    public void signInClick(ActionEvent actionEvent) throws IOException {
 
         phoneNumberField.setText(phoneNumberField.getText().replace("-", ""));
         phoneNumberField.setText(phoneNumberField.getText().replace(" ", ""));
 
         if(validation.check(passwordField.getText(), false) &&
                 validation.check(phoneNumberField.getText(), true)) {
-            ClientController clientController = context.getBean("clientController", ClientController.class);
             boolean pass;
+            ClientController clientController = context.getBean("clientController", ClientController.class);
             try {
                 userClient = (UserClient) clientController.getClientByPhoneNumber(phoneNumberField.getText());
                 pass = true;
@@ -65,21 +65,4 @@ public class RegistrationScreenController {
             nickLabel.setTextFill(Color.RED);
         }
     }
-
-    @FXML
-    public void signInClick(ActionEvent actionEvent) {
-                Stage stage = (Stage) signUpButton.getScene().getWindow();
-                stage.close();
-        try {
-            new SignInScreen();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public void initialize(){
-        context = new AnnotationConfigApplicationContext(SpringConfig.class);
-        validation = context.getBean("validation", Validation.class);
-    }
-
 }

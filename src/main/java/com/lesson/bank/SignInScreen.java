@@ -6,17 +6,15 @@ import com.lesson.bank.client.UserClient;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
-@Component
-public class MainScreen {
+public class SignInScreen {
 
     private FXMLLoader fxmlLoader;
 
-    public MainScreen() throws IOException {
-        fxmlLoader = new FXMLLoader(RegistrationScreen.class.getResource("main-screen.fxml"));
+    public SignInScreen() throws IOException {
+        fxmlLoader = new FXMLLoader(RegistrationScreen.class.getResource("sign-in-screen.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 600, 400);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -27,9 +25,8 @@ public class MainScreen {
         stage.show();
     }
 
-    public MainScreenController getMainScreenController(){
+    public SignInScreenController getSignInScreenController(){
         return fxmlLoader.getController();
     }
 
 }
-

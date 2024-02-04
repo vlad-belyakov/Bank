@@ -1,17 +1,17 @@
 package com.lesson.bank.client;
 
+import org.springframework.stereotype.Component;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 
+@Component
 public class ClientSend implements Runnable{
 
     public Socket clientSocket;
-
     private PrintWriter out;
-
     private String message;
-
     private boolean messageReady = false;
 
     public ClientSend() {
@@ -32,6 +32,37 @@ public class ClientSend implements Runnable{
 
     @Override
     public void run() {
+        try {
+            while (true) {
+                System.out.print("");
+                if (messageReady) {
+                    out.println(message);
+                    System.out.println("отправленное сообщение - " + message);
+                    messageReady = false;
+                }
+            }
+        }
+        finally {
+            System.out.println("Пользователь вышел из приложения");
+            out.println("Пользователь вышел из приложения");
+            out.close();
+            System.out.println("Поток вывода закрыт");
+            try {
+                clientSocket.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            System.out.println("Сокет закрыт");
+        }
+    }
 
+    public void sendMessage(String msg){
+        message = msg;
+        messageReady = true;
+    }
+
+    public void sendCommand(String command){
+        out.println(command);
+        System.out.println("CS - " + command);
     }
 }
